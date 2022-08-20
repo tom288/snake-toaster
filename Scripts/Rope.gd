@@ -1,8 +1,8 @@
 extends Node
 
 const rope_piece_tscn = preload("res://Parts/RopePiece.tscn")
-const piece_length = 4
-const rope_close_tolerance = 4
+const piece_length = 16
+const rope_close_tolerance = 16
 
 onready var rope_start_piece = $StartPiece
 onready var rope_end_piece = $EndPiece
@@ -18,7 +18,8 @@ func spawn_rope(start_pos: Vector2, end_pos: Vector2):
 	var distance = start_pos.distance_to(end_pos)
 	var pieces_amount = round(distance / piece_length)
 	var spawn_angle = (end_pos - start_pos).angle() - PI / 2 # TODO can this just be (start_pos - end_pos).angle() ?
-	create_rope(pieces_amount, rope_start_piece, end_pos, spawn_angle)
+	if pieces_amount > 0:
+		create_rope(pieces_amount, rope_start_piece, end_pos, spawn_angle)
 
 		
 func create_rope(pieces_amount, parent: Object, end_pos: Vector2, spawn_angle: float):
