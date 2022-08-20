@@ -6,6 +6,7 @@
 radius = 3.0
 
 [node name="RopeEndPiece" type="RigidBody2D"]
+mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
