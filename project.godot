@@ -14,6 +14,11 @@ config/name="Snake Toaster"
 run/main_scene="res://Level.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=720
+window/size/height=1280
+
 [global]
 
 scene=false

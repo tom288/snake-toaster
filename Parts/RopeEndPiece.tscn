@@ -6,7 +6,6 @@
 radius = 3.0
 
 [node name="RopeEndPiece" type="RigidBody2D"]
-scale = Vector2( 0.931104, 1.00575 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
