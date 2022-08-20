@@ -2,7 +2,7 @@ extends Node
 
 const rope_piece_tscn = preload("res://Parts/RopePiece.tscn")
 const piece_length = 4
-const rope_close_tolerance = piece_length
+const rope_close_tolerance = 4
 
 onready var rope_start_piece = $StartPiece
 onready var rope_end_piece = $EndPiece
