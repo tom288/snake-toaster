@@ -64,4 +64,5 @@ func get_rope_points():
 	rope_points.append(rope_end_joint.global_position)
 	
 func _draw():
-	draw_polyline(rope_points, Color.black)
+	if rope_points.size() >= 2:
+		draw_polyline(rope_points, Color.black)
