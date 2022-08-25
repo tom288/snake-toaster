@@ -1,16 +1,20 @@
 extends CanvasItem
 
 const rope_piece_tscn = preload("res://Parts/RopePiece.tscn")
-const piece_length = 16
-const rope_close_tolerance = 16
+const piece_length = 8
+const rope_close_tolerance = 8
 
 onready var rope_start_piece = $StartPiece
 onready var rope_end_piece = $EndPiece
 onready var rope_start_joint = $StartPiece/CollisionShape2D/PinJoint2D
 onready var rope_end_joint = $EndPiece/CollisionShape2D/PinJoint2D
 
+const color_head := Color.forestgreen
+const color_alt := Color.darkslategray
+
 var rope_parts = []
 var rope_points: PoolVector2Array = []
+var rope_colors: PoolColorArray = []
 
 func _process(_delta):
 	get_rope_points()
@@ -32,7 +36,9 @@ func spawn_rope(start_pos: Vector2, end_pos: Vector2):
 
 		
 func create_rope(pieces_amount, parent: Object, end_pos: Vector2, spawn_angle: float):
+	rope_colors.append(color_head)
 	for i in pieces_amount:
+		rope_colors.append(color_alt if i % 2 == 0 else color_head)
 		parent = add_piece(parent, i, spawn_angle)
 		parent.set_name("rope_piece_%d" % i)
 		rope_parts.append(parent)
@@ -43,6 +49,8 @@ func create_rope(pieces_amount, parent: Object, end_pos: Vector2, spawn_angle: f
 			
 	rope_end_joint.node_a = rope_end_piece.get_path()
 	rope_end_joint.node_b = rope_parts[-1].get_path()
+	
+	rope_colors.append(color_alt if rope_colors[-1] == color_head else color_head)
 
 func add_piece(parent: Object, id: int, spawn_angle: float) -> Object:
 	var joint : PinJoint2D = parent.get_node("CollisionShape2D/PinJoint2D") as PinJoint2D
@@ -65,4 +73,6 @@ func get_rope_points():
 	
 func _draw():
 	if rope_points.size() >= 2:
-		draw_polyline(rope_points, Color.black)
+		draw_circle(rope_points[-1], 5, rope_colors[-1])
+		draw_polyline_colors(rope_points, rope_colors, 10, true)
+		draw_circle(rope_points[0], 10, color_head)
