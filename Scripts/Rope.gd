@@ -20,7 +20,6 @@ func _process(_delta):
 	get_rope_points()
 	if !rope_points.empty():
 		update()
-	
 
 func spawn_rope(start_pos: Vector2, end_pos: Vector2):
 	rope_start_piece.global_position = start_pos
@@ -34,7 +33,6 @@ func spawn_rope(start_pos: Vector2, end_pos: Vector2):
 	if pieces_amount > 0:
 		create_rope(pieces_amount, rope_start_piece, end_pos, spawn_angle)
 
-		
 func create_rope(pieces_amount, parent: Object, end_pos: Vector2, spawn_angle: float):
 	rope_colors.append(color_head)
 	for i in pieces_amount:
@@ -63,14 +61,14 @@ func add_piece(parent: Object, id: int, spawn_angle: float) -> Object:
 	joint.node_a = parent.get_path()
 	joint.node_b = piece.get_path()
 	return piece
-	
+
 func get_rope_points():
 	rope_points = []
 	rope_points.append(rope_start_joint.global_position)
 	for r in rope_parts:
 		rope_points.append(r.global_position)
 	rope_points.append(rope_end_joint.global_position)
-	
+
 func _draw():
 	if rope_points.size() >= 2:
 		draw_circle(rope_points[-1], 5, rope_colors[-1])
